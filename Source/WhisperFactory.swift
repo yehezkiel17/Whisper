@@ -28,11 +28,11 @@ class WhisperFactory: NSObject {
 
   override init() {
     super.init()
-    NotificationCenter.default.addObserver(self, selector: #selector(WhisperFactory.orientationDidChange), name: UIDevice.orientationDidChangeNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(WhisperFactory.orientationDidChange), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
   }
 
   deinit {
-    NotificationCenter.default.removeObserver(self, name: UIDevice.orientationDidChangeNotification, object: nil)
+    NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
   }
 
   func craft(_ message: Message, navigationController: UINavigationController, action: WhisperAction) {
@@ -280,7 +280,7 @@ extension WhisperFactory: UINavigationControllerDelegate {
     var maximumY = navigationController.navigationBar.frame.maxY - UIApplication.shared.statusBarFrame.height
 
     for subview in navigationController.navigationBar.subviews {
-        if subview is WhisperView { navigationController.navigationBar.bringSubviewToFront(subview) }
+        if subview is WhisperView { navigationController.navigationBar.bringSubview(toFront: subview) }
 
       if subview.frame.maxY > maximumY && !(subview is WhisperView) {
         maximumY = subview.frame.maxY
